@@ -1,3 +1,6 @@
+#---------------------------Referencias------------------------------------------------------
+#https://pyformat.info/#string_pad_align
+
 # ---------------------  Funciones  Axuiliares------------------------------------------------
 def cal_G(dia, mes, anno):
     if(mes==2 and dia<=28):
@@ -119,10 +122,25 @@ def R3(dia_siguiente): #Calcula el dia siguiente, dado una fecha. Puede mejorars
 #R5 --------------------     calendario          ------------------------------------------
 #joshua
 
-
-
+def R5(Imprimir_3x4):
+    Meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    Dias = "  D L M M J V S  "
+    Fechas = "|" + " "*15 +  "|"
+    x = 1
+    while (x < 13):
+        if (x % 4 != 0):
+            print('{:^18}'.format(Meses[x-1]), end = " ")
+        else:
+            c = 0
+            print('{:^18}'.format(Meses[x-1]))
+            print('{:^10} '.format(Dias)*4)
+            while ( c < 4):
+                print('| {:^2}{:^2}{:^2}{:^2}{:^2}{:^2}{:^2}| '.format("a","b","c","d","e","f","g")*4)
+                c += 1 
+        x += 1
 
 
 #-------------------------------PRUEBAS----------------------------------------------------
 
-print(R3((2020,3,22)))
+#print(R3((2020,3,22)))
+#print(R5(1))
