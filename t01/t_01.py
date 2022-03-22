@@ -43,13 +43,12 @@ def R0(fecha_es_tupla):
 #R1 ---------------------------------------------------------------------
 #joshua
 def R1(fecha_es_valida):
-    if (fecha_es_valida%4 == 0):
+	if (fecha_es_valida%4 == 0):
 		return True
 	elif (fecha_es_valida%100 == 0) and (fecha_es_valida%400 == 0):
 		return True
 	else:
 		return False
-
 
 #R2 --------------------     fecha valida G.     ------------------------------
 #mari
@@ -87,7 +86,7 @@ def R3(dia_siguiente): #Calcula el dia siguiente, dado una fecha. Puede mejorars
 	Dias_31 = [1,3,5,7,8,10,12]
 	Dias_30 = [4,6,9,11]
 	if (R2(dia_siguiente) == True):
-		esBisiesto = bisiesto(dia_siguiente[0])
+		esBisiesto = R1(dia_siguiente[0])
 		dia = dia_siguiente[2]
 		mes = dia_siguiente[1]
 		if (mes in Dias_31) and (dia == 31):
@@ -119,3 +118,11 @@ def R3(dia_siguiente): #Calcula el dia siguiente, dado una fecha. Puede mejorars
             
 #R5 --------------------     calendario          ------------------------------------------
 #joshua
+
+
+
+
+
+#-------------------------------PRUEBAS----------------------------------------------------
+
+print(R3((2020,3,22)))
