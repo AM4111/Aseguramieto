@@ -36,7 +36,7 @@ def R1(fecha_es_valida):
             return False
 
 #R2 --------------------     fecha valida G.     ------------------------------
-#mari
+#mari 
 
 def cal_G(dia, mes, anno):
     Dias_31 = [1,3,5,7,8,10,12]
