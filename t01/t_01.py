@@ -127,10 +127,16 @@ def R4(ordinal_dia):
     dias = 0
     if(R2(ordinal_dia)):
         for i in range(ordinal_dia[1]):
-            if (i in Dias_30):
-                dias = dias + 31
-            elif (i in Dias_31):
+            if (i ==2):
+                if (R1(ordinal_dia[0])):
+                    print("isiesto")
+                    dias = dias + 29
+                else:
+                    dias = dias + 28
+            elif (i in Dias_30):
                 dias = dias + 30
+            elif (i in Dias_31):
+                dias = dias + 31
         dias = dias + ordinal_dia[2]
         return (dias)
             
