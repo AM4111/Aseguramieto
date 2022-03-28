@@ -23,6 +23,18 @@ def R0(fecha_es_tupla):
 
 #(15,1,12) = valido     (2000,2,0)=falso
 
+def cal_Dia(fecha):
+    formatoMeses = {1:11,2:12,3:1,4:2,5:3,6:4,7:5,8:6,9:7,10:8,11:9,12:10}
+    dia = fecha[2] #Dia del año
+    mes = formatoMeses[fecha[1]] #Mes del año, se cuenta desde marzo (Marzo = 1)
+    anno = fecha[0]
+    if (mes == 12) or (mes == 11): #Se cuentan los ultimos dos meses del año pasado como enero y febrero
+        anno -=1 
+    PD = anno//100 #Primeros dos digitos del año
+    UD = anno%100 #Ultimos dos digitos del año
+    
+    NumDia = (dia+( (13*mes-1)//5 )+UD+(UD//4)+(PD//4)-2*PD)%7 #Numero correspondiente al día de la semana de esa fecha en particular
+    return NumDia
 
 #R1 ---------------------------------------------------------------------
 #joshua
