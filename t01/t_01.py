@@ -158,7 +158,6 @@ def R4(ordinal_dia):
 def R5(Imprimir_3x4):
     Meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     Dias = "  D L M M J V S  "
-    Fechas = "|" + " "*15 +  "|"
     x = 1
     while (x < 13):
         if (x % 4 != 0):
@@ -167,8 +166,8 @@ def R5(Imprimir_3x4):
             c = 0
             print('{:^18}'.format(Meses[x-1]))
             print('{:^10} '.format(Dias)*4)
-            while ( c < 4):
-                print('| {:^2}{:^2}{:^2}{:^2}{:^2}{:^2}{:^2}| '.format("a","b","c","d","e","f","g")*4)
+            while ( c < 4): # Fila de los días de 4 meses distintos
+                print('| {:^2}{:^2}{:^2}{:^2}{:^2}{:^2}{:^2}| '.format(" "," "," "," "," "," ","g")*4) #Hay que cambiarlo para que despliegue los dias
                 c += 1 
         x += 1
 
