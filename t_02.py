@@ -6,18 +6,18 @@
 #mari
 def R0(fecha_es_tupla):
     if(len(fecha_es_tupla) != 3):
-        print('tupla no valida')
+        #print('tupla no valida')
         return (bool(0))
     else:
         for i in range(3):
             if (fecha_es_tupla[i]<= 0):
-                print('no todos son enteros positivos')
+                #print('no todos son enteros positivos')
                 return (bool(0))
         if (fecha_es_tupla[1]<=12):
             if (fecha_es_tupla[2]<=32):
                 return (bool(1))
         else:
-             print('Mes no valida')
+             #print('Mes no valida')
              return (bool(0))
 
 #(15,1,12) = valido     (2000,2,0)=falso
@@ -70,7 +70,7 @@ def cal_G(dia, mes, anno):
         return (bool(1))
         
     elif(mes in Dias_30 and dia<=30):
-        print(dia)
+        #print(dia)
         return (bool(1))
         
     elif(mes in Dias_31 and dia<=31):
@@ -135,7 +135,7 @@ def R4(ordinal_dia):
         for i in range(ordinal_dia[1]):
             if (i ==2):
                 if (R1(ordinal_dia[0])):
-                    print("isiesto")
+                    #print("isiesto")
                     dias = dias + 29
                 else:
                     dias = dias + 28
@@ -150,24 +150,58 @@ def R4(ordinal_dia):
 #joshua
 
 def R5(Imprimir_3x4):
+    Dias_31 = [1,3,5,7,8,10,12]
+    Dias_30 = [4,6,9,11]
     if Imprimir_3x4 <= 1852:
         print("La fecha no es correcta")
     else:
         Meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
         Dias = "   D  L  M  M  J  V  S  "
         x = 1
-        print('{:^100}'.format(Imprimir_3x4))
-        while (x < 6):
-            print(' {:^10}{:^10}{:^10}{:^10} '.format("Enero","Febrero","Marzo","Abril"))
-            if  x == 4:
-                print(' {:^10}{:^10}{:^10}{:^10} '.format("Enero","Febrero","Marzo","Abril"))
-                c = 0
-                i = 0
+        print("----------------------------------------------------------------------------------------------------")
+        print("                                    Calendario      ",Imprimir_3x4)
+        while (x < 4):
+            #print(' {:^10}{:^10}{:^10}{:^10} '.format("Enero","Febrero","Marzo","Abril"))
+            if  x == 1:
+                print("----------------------------------------------------------------------------------------------------")
+                print(' {:^15}{:^45}{:^5}{:^45} '.format("Enero","Febrero","Marzo","Abril"))
+                print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format("D","L","K","M","J","V","S")*3, end = "")
+                print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format("D","L","K","M","J","V","S"))
                 m1 = (Imprimir_3x4,1,1)
                 d1= (Imprimir_3x4,1,1)
                 d2 = (Imprimir_3x4,2,1)
                 d3 = (Imprimir_3x4,3,1)
                 d4 = (Imprimir_3x4,4,1)
+            elif  x == 2:
+                print("                                                                                                    ")
+                print(' {:^15}{:^45}{:^5}{:^45} '.format("Mayo","Junio","Julio","Agosto"))
+                print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format("D","L","K","M","J","V","S")*3, end = "")
+                print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format("D","L","K","M","J","V","S"))
+                m1 = (Imprimir_3x4,5,1)
+                d1= (Imprimir_3x4,5,1)
+                d2 = (Imprimir_3x4,6,1)
+                d3 = (Imprimir_3x4,7,1)
+                d4 = (Imprimir_3x4,8,1)
+
+            else:
+                print("                                                                                                    ")
+                print(' {:^20}{:^35}{:^5}{:^45} '.format("Septiembre","Octubre","Noviembre","Diciembre"))
+                print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format("D","L","K","M","J","V","S")*3, end = "")
+                print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format("D","L","K","M","J","V","S"))
+                m1 = (Imprimir_3x4,9,1)
+                d1= (Imprimir_3x4,9,1)
+                d2 = (Imprimir_3x4,10,1)
+                d3 = (Imprimir_3x4,11,1)
+                d4 = (Imprimir_3x4,12,1)
+
+            c = 0
+            i=0
+            j = 0
+            f1=0
+            f2=0
+            f3=0
+            f4=0
+            while (i < 24):
                 p1 = " "
                 p2 = " "
                 p3 = " "
@@ -175,154 +209,720 @@ def R5(Imprimir_3x4):
                 p5 = " "
                 p6 = " "
                 p7 = " "
-                while (i < 4): 
-                    if (i == 0):
-                        m1 = d1
-                    elif (i == 1):
-                        m1 = d2
-                    elif (i == 2):
-                        m1 = d3
-                    elif (i == 3):
-                        m1 = d4
-                    c = cal_Dia(m1)
-                    if (c == 0):
-                        p1 = str(m1[2])
-
+                if (i == 0 or i == 4 or i == 8 or i == 12 or i == 16 or i == 20):
+                    m1 = d1
+                    ff = f1
+                    if (i > 0):
                         m1 = R3(m1)
-                        p2 = str(m1[2])
-
+                elif (i == 1 or i == 5 or i == 9 or i == 13 or i == 17  or i == 21):
+                    m1 = d2
+                    ff = f2
+                    if (i > 1):
                         m1 = R3(m1)
-                        p3 = str(m1[2])
-
+                elif (i == 2 or i == 6 or i == 10 or i == 14 or i == 18 or i == 22):
+                    m1 = d3
+                    ff = f3
+                    if (i > 2):
                         m1 = R3(m1)
-                        p4 = str(m1[2])
-
+                elif (i == 3 or i == 7 or i == 11 or i == 15 or i == 19 or i == 23):
+                    m1 = d4
+                    ff = f4
+                    if (i > 3):
                         m1 = R3(m1)
-                        p5 = str(m1[2])
+                c = cal_Dia(m1)
+                if (c == 0 ):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p1 = str(m1[2])
+                                
+                                m1 = R3(m1)
+                                if (m1[2]<=29 and ff==0):
+                                    if (m1[2]==29):
+                                        ff = 1
+                                    p2 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p6 = str(m1[2])
+                                    m1 = R3(m1)
+                                    if (m1[2]<=29 and ff==0):
+                                        if (m1[2]==29):
+                                            ff = 1
+                                        p3 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p7 = str(m1[2])
-                    elif (c == 1):
-                        p2 = str(m1[2])
+                                        m1 = R3(m1)
+                                        if (m1[2]<=29 and ff==0):
+                                            if (m1[2]==29):
+                                                ff = 1
+                                            p4 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p3 = str(m1[2])
+                                            m1 = R3(m1)
+                                            if (m1[2]<=29 and ff==0):
+                                                if (m1[2]==29):
+                                                    ff = 1
+                                                p5 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p4 = str(m1[2])
+                                                m1 = R3(m1)
+                                                if (m1[2]<=29 and ff==0):
+                                                    if (m1[2]==29):
+                                                        ff = 1
+                                                    p6 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p5 = str(m1[2])
+                                                    m1 = R3(m1)
+                                                    if (m1[2]<=29 and ff==0):
+                                                        if (m1[2]==29):
+                                                            ff = 1
+                                                        p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p1 = str(m1[2])
+                                
+                                m1 = R3(m1)
+                                if (m1[2]<=28 and ff==0):
+                                    if (m1[2]==28):
+                                        ff = 1
+                                    p2 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p6 = str(m1[2])
+                                    m1 = R3(m1)
+                                    if (m1[2]<=28 and ff==0):
+                                        if (m1[2]==28):
+                                            ff = 1
+                                        p3 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p7 = str(m1[2])
-                    elif (c == 2):
-                        p3 = str(m1[2])
+                                        m1 = R3(m1)
+                                        if (m1[2]<=28 and ff==0):
+                                            if (m1[2]==28):
+                                                ff = 1
+                                            p4 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p4 = str(m1[2])
+                                            m1 = R3(m1)
+                                            if (m1[2]<=28 and ff==0):
+                                                if (m1[2]==28):
+                                                    ff = 1
+                                                p5 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p5 = str(m1[2])
+                                                m1 = R3(m1)
+                                                if (m1[2]<=28 and ff==0):
+                                                    if (m1[2]==28):
+                                                        ff = 1
+                                                    p6 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p6 = str(m1[2])
+                                                    m1 = R3(m1)
+                                                    if (m1[2]<=28 and ff==0):
+                                                        if (m1[2]==28):
+                                                            ff = 1
+                                                        p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p1 = str(m1[2])
+                            
+                            m1 = R3(m1)
+                            if (m1[2]<=30 and ff==0):
+                                if (m1[2]==30):
+                                    ff = 1
+                                p2 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p7 = str(m1[2])
-                    elif (c == 3):
-                        p4 = str(m1[2])
+                                m1 = R3(m1)
+                                if (m1[2]<=30 and ff==0):
+                                    if (m1[2]==30):
+                                        ff = 1
+                                    p3 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p5 = str(m1[2])
+                                    m1 = R3(m1)
+                                    if (m1[2]<=30 and ff==0):
+                                        if (m1[2]==30):
+                                            ff = 1
+                                        p4 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p6 = str(m1[2])
+                                        m1 = R3(m1)
+                                        if (m1[2]<=30 and ff==0):
+                                            if (m1[2]==30):
+                                                ff = 1
+                                            p5 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p7 = str(m1[2])
-                    elif (c == 4):
-                        p5 = str(m1[2])
+                                            m1 = R3(m1)
+                                            if (m1[2]<=30 and ff==0):
+                                                if (m1[2]==30):
+                                                    ff = 1
+                                                p6 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p6 = str(m1[2])
+                                                m1 = R3(m1)
+                                                if (m1[2]<=30 and ff==0):
+                                                    if (m1[2]==30):
+                                                        ff = 1
+                                                    p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p1 = str(m1[2])
+                            
+                            m1 = R3(m1)
+                            if (m1[2]<=31 and ff==0):
+                                if (m1[2]==31):
+                                    ff = 1
+                                p2 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p7 = str(m1[2])
-                    elif (c == 5):
-                        p6 = str(m1[2])
+                                m1 = R3(m1)
+                                if (m1[2]<=31 and ff==0):
+                                    if (m1[2]==31):
+                                        ff = 1
+                                    p3 = str(m1[2])
 
-                        m1 = R3(m1)
-                        p7 = str(m1[2])
-                    elif (c == 6):
-                        p7 = str(m1[2])
-                    if (i != 3):
-                        print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(p1,p2,p3,p4,p5,p6,p7), end = "")
-                    else:
-                        print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(p1,p2,p3,p4,p5,p6,p7))
-                    i += 1
+                                    m1 = R3(m1)
+                                    if (m1[2]<=31 and ff==0):
+                                        if (m1[2]==31):
+                                            ff = 1
+                                        p4 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=31 and ff==0):
+                                            if (m1[2]==31):
+                                                ff = 1
+                                            p5 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=31 and ff==0):
+                                                if (m1[2]==31):
+                                                    ff = 1
+                                                p6 = str(m1[2])
+
+                                                m1 = R3(m1)
+                                                if (m1[2]<=31 and ff==0):
+                                                    if (m1[2]==31):
+                                                        ff = 1
+                                                    p7 = str(m1[2])
+                elif (c == 1):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p2 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=29 and ff==0):
+                                    if (m1[2]==29):
+                                        ff = 1
+                                    p3 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=29 and ff==0):
+                                        if (m1[2]==29):
+                                            ff = 1
+                                        p4 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=29 and ff==0):
+                                            if (m1[2]==29):
+                                                ff = 1
+                                            p5 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=29 and ff==0):
+                                                if (m1[2]==29):
+                                                    ff = 1
+                                                p6 = str(m1[2])
+
+                                                m1 = R3(m1)
+                                                if (m1[2]<=29 and ff==0):
+                                                    if (m1[2]==29):
+                                                        ff = 1
+                                                    p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p2 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=28 and ff==0):
+                                    if (m1[2]==28):
+                                        ff = 1
+                                    p3 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=28 and ff==0):
+                                        if (m1[2]==28):
+                                            ff = 1
+                                        p4 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=28 and ff==0):
+                                            if (m1[2]==28):
+                                                ff = 1
+                                            p5 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=28 and ff==0):
+                                                if (m1[2]==28):
+                                                    ff = 1
+                                                p6 = str(m1[2])
+
+                                                m1 = R3(m1)
+                                                if (m1[2]<=28 and ff==0):
+                                                    if (m1[2]==28):
+                                                        ff = 1
+                                                    p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p2 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=30 and ff==0):
+                                if (m1[2]==30):
+                                    ff = 1
+                                p3 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=30 and ff==0):
+                                    if (m1[2]==30):
+                                        ff = 1
+                                    p4 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=30 and ff==0):
+                                        if (m1[2]==30):
+                                            ff = 1
+                                        p5 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=30 and ff==0):
+                                            if (m1[2]==30):
+                                                ff = 1
+                                            p6 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=30 and ff==0):
+                                                if (m1[2]==30):
+                                                    ff = 1
+                                                p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p2 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=31 and ff==0):
+                                if (m1[2]==31):
+                                    ff = 1
+                                p3 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=31 and ff==0):
+                                    if (m1[2]==31):
+                                        ff = 1
+                                    p4 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=31 and ff==0):
+                                        if (m1[2]==31):
+                                            ff = 1
+                                        p5 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=31 and ff==0):
+                                            if (m1[2]==31):
+                                                ff = 1
+                                            p6 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=31 and ff==0):
+                                                if (m1[2]==31):
+                                                    ff = 1
+                                                p7 = str(m1[2])
+
+                    
+                elif (c == 2):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p3 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=29 and ff==0):
+                                    if (m1[2]==29):
+                                        ff = 1
+                                    p4 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=29 and ff==0):
+                                        if (m1[2]==29):
+                                            ff = 1
+                                        p5 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=29 and ff==0):
+                                            if (m1[2]==29):
+                                                ff = 1
+                                            p6 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=29 and ff==0):
+                                                if (m1[2]==29):
+                                                    ff = 1
+                                                p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p3 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=28 and ff==0):
+                                    if (m1[2]==28):
+                                        ff = 1
+                                    p4 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=28 and ff==0):
+                                        if (m1[2]==28):
+                                            ff = 1
+                                        p5 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=28 and ff==0):
+                                            if (m1[2]==28):
+                                                ff = 1
+                                            p6 = str(m1[2])
+
+                                            m1 = R3(m1)
+                                            if (m1[2]<=28 and ff==0):
+                                                if (m1[2]==28):
+                                                    ff = 1
+                                                p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p3 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=30 and ff==0):
+                                if (m1[2]==30):
+                                    ff = 1
+                                p4 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=30 and ff==0):
+                                    if (m1[2]==30):
+                                        ff = 1
+                                    p5 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=30 and ff==0):
+                                        if (m1[2]==30):
+                                            ff = 1
+                                        p6 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=30 and ff==0):
+                                            if (m1[2]==30):
+                                                ff = 1
+                                            p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p3 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=31 and ff==0):
+                                if (m1[2]==31):
+                                    ff = 1
+                                p4 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=31 and ff==0):
+                                    if (m1[2]==31):
+                                        ff = 1
+                                    p5 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=31 and ff==0):
+                                        if (m1[2]==31):
+                                            ff = 1
+                                        p6 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=31 and ff==0):
+                                            if (m1[2]==31):
+                                                ff = 1
+                                            p7 = str(m1[2])
+                elif (c == 3):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p4 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=29 and ff==0):
+                                    if (m1[2]==29):
+                                        ff = 1
+                                    p5 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=29 and ff==0):
+                                        if (m1[2]==29):
+                                            ff = 1
+                                        p6 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=29 and ff==0):
+                                            if (m1[2]==29):
+                                                ff = 1
+                                            p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p4 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=28 and ff==0):
+                                    if (m1[2]==28):
+                                        ff = 1
+                                    p5 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=28 and ff==0):
+                                        if (m1[2]==28):
+                                            ff = 1
+                                        p6 = str(m1[2])
+
+                                        m1 = R3(m1)
+                                        if (m1[2]<=28 and ff==0):
+                                            if (m1[2]==28):
+                                                ff = 1
+                                            p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p4 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=30 and ff==0):
+                                if (m1[2]==30):
+                                    ff = 1
+                                p5 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=30 and ff==0):
+                                    if (m1[2]==30):
+                                        ff = 1
+                                    p6 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=30 and ff==0):
+                                        if (m1[2]==30):
+                                            ff = 1
+                                        p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p4 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=31 and ff==0):
+                                if (m1[2]==31):
+                                    ff = 1
+                                p5 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=31 and ff==0):
+                                    if (m1[2]==31):
+                                        ff = 1
+                                    p6 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=31 and ff==0):
+                                        if (m1[2]==31):
+                                            ff = 1
+                                        p7 = str(m1[2])
+                elif (c == 4):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p5 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=29 and ff==0):
+                                    if (m1[2]==29):
+                                        ff = 1
+                                    p6 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=29 and ff==0):
+                                        if (m1[2]==29):
+                                            ff = 1
+                                        p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p5 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=28 and ff==0):
+                                    if (m1[2]==28):
+                                        ff = 1
+                                    p6 = str(m1[2])
+
+                                    m1 = R3(m1)
+                                    if (m1[2]<=28 and ff==0):
+                                        if (m1[2]==28):
+                                            ff = 1
+                                        p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p5 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=30 and ff==0):
+                                if (m1[2]==30):
+                                    ff = 1
+                                p6 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=30 and ff==0):
+                                    if (m1[2]==30):
+                                        ff = 1
+                                    p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p5 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=31 and ff==0):
+                                if (m1[2]==31):
+                                    ff = 1
+                                p6 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=31 and ff==0):
+                                    if (m1[2]==31):
+                                        ff = 1
+                                    p7 = str(m1[2])
+                elif (c == 5):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p6 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=29 and ff==0):
+                                    if (m1[2]==29):
+                                        ff = 1
+                                    p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p6 = str(m1[2])
+
+                                m1 = R3(m1)
+                                if (m1[2]<=28 and ff==0):
+                                    if (m1[2]==28):
+                                        ff = 1
+                                    p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p6 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=30 and ff==0):
+                                if (m1[2]==30):
+                                    ff = 1
+                                p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p6 = str(m1[2])
+
+                            m1 = R3(m1)
+                            if (m1[2]<=31 and ff==0):
+                                if (m1[2]==31):
+                                    ff = 1
+                                p7 = str(m1[2])
+                elif (c == 6):
+                    if(m1[1]== 2):
+                        if(R1(m1[0])):
+                            if (m1[2]<=29 and ff==0):
+                                if (m1[2]==29):
+                                    ff = 1
+                                p7 = str(m1[2])
+                        else:
+                            if (m1[2]<=28 and ff==0):
+                                if (m1[2]==28):
+                                    ff = 1
+                                p7 = str(m1[2])
+                    if(m1[1]in Dias_30):
+                        if (m1[2]<=30 and ff==0):
+                            if (m1[2]==30):
+                                ff = 1
+                            p7 = str(m1[2])
+                    if(m1[1]in Dias_31):
+                        if (m1[2]<=31 and ff==0):
+                            if (m1[2]==31):
+                                ff = 1
+                            p7 = str(m1[2])
+
+                if (j == 0 or j == 4 or j == 8 or j == 12 or i == 16 or i == 20):
+                    d1 = m1
+                    f1 = ff
+##                        print(d1)
+##                        print(m1)
+                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(p1,p2,p3,p4,p5,p6,p7), end = "")
+                elif (j == 1 or j == 5 or j == 9 or j == 13 or i == 17 or i == 21):
+                    d2 = m1
+                    f2 = ff
+##                        print(d2)
+##                        print(m1)
+                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(p1,p2,p3,p4,p5,p6,p7), end = "")
+                elif (j == 2 or j == 6 or j == 10 or j == 14 or i == 18 or i == 22):
+                    d3 = m1
+                    f3 = ff
+##                        print(d3)
+##                        print(m1)
+                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(p1,p2,p3,p4,p5,p6,p7), end = "")
+                elif (j == 3 or j == 7 or j == 11 or j == 15 or i == 19 or i == 23):
+                    d4 = m1
+                    f4 = ff
+##                        print(d4)
+##                        print(m1)
+                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(p1,p2,p3,p4,p5,p6,p7))
+                i += 1
+                j += 1
             x += 1
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(1,2,3,4,5,6,7))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(8,9,10,11,12,13,14)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(8,9,10,11,12,13,14))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(15,16,17,18,19,20,21)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(15,16,17,18,19,20,21))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(22,23,24,25,26,27,28)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(22,23,24,25,26,27,28))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," ",), end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(" "," "," "," "," "," "," "," "), end = "") 
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," ",), end = "")
-##                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30," "," "," "," "," ",))
-##                    
-##                elif  x == 8:
-##                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(1,2,3,4,5,6,7,8)*4, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(1,2,3,4,5,6,7,8))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(8,9,10,11,12,13,14)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(8,9,10,11,12,13,14))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(15,16,17,18,19,20,21)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(15,16,17,18,19,20,21))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(22,23,24,25,26,27,28)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(22,23,24,25,26,27,28))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," ",), end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30," "," "," "," "," "), end = "") 
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," "), end = "")
-##                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," "))
-##                    
-##                elif  x == 12:
-##                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(1,2,3,4,5,6,7,8)*4, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(1,2,3,4,5,6,7,8))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(8,9,10,11,12,13,14)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(8,9,10,11,12,13,14))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(15,16,17,18,19,20,21)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(15,16,17,18,19,20,21))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(22,23,24,25,26,27,28)*3, end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(22,23,24,25,26,27,28))
-####
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30," "," "," "," "," ",), end = "")
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," "), end = "") 
-####                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30," "," "," "," "," ",), end = "")
-##                    print('| {:^3}{:^3}{:^3}{:^3}{:^3}{:^3}{:^3}| '.format(29,30,31," "," "," "," ",))  
-##            x += 1 
+        
+
 
 #-------------------------------PRUEBAS----------------------------------------------------
 
 #print(R3((2020,3,22)))
 #print(cal_Dia((2022,3,29)))
-print(R5(1855))
+print(R5(2022))
