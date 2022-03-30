@@ -147,7 +147,7 @@ def R4(ordinal_dia):
         return (dias)
             
 #R5 --------------------     CALENDARIO          ------------------------------------------
-#joshua
+#joshua y mari
 
 def R5(Imprimir_3x4):
     Dias_31 = [1,3,5,7,8,10,12]
@@ -919,10 +919,10 @@ def R5(Imprimir_3x4):
                 j += 1
             x += 1
         
-
+    return
 
 #-------------------------------PRUEBAS----------------------------------------------------
 
 #print(R3((2020,3,22)))
 #print(cal_Dia((2022,3,29)))
-print(R5(2022))
+print(R5(2016))
