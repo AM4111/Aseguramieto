@@ -106,7 +106,7 @@ def R3(dia_siguiente): #Calcula el dia siguiente, dado una fecha. Puede mejorars
 			return dia_siguiente
 		if (mes in Dias_30) and (dia == 30):
 			fecha = (dia_siguiente[0],dia_siguiente[1]+1,1)
-			return dia_siguiente
+			return fecha
 		if (esBisiesto) and (mes == 2):
 			if (dia == 29):
 				dia_siguiente = (dia_siguiente[0],dia_siguiente[1]+1,1)
