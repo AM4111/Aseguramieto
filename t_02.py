@@ -152,7 +152,7 @@ def R4(ordinal_dia):
 def R5(Imprimir_3x4):
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
-    if Imprimir_3x4 <= 1852:
+    if Imprimir_3x4 <= 1582:
         print("La fecha no es correcta")
     else:
         Meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
@@ -919,10 +919,9 @@ def R5(Imprimir_3x4):
                 j += 1
             x += 1
         
-    return " "
 
 #-------------------------------PRUEBAS----------------------------------------------------
 
 #print(R3((2020,3,22)))
 #print(cal_Dia((2022,3,29)))
-print(R5(2016))
+
