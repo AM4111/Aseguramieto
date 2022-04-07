@@ -1,10 +1,11 @@
 #---------------------------Referencias------------------------------------------------------
 #https://pyformat.info/#string_pad_align
+#https://docs.python.org/3/library/datetime.html
 
-
+from datetime import date
 #R0 ---------------------------------------------------------------------
 #mari
-def fecha_es_tupla(fecha):
+def fecha_es_tupla(fecha): #Cambio de nombre
     if(len(fecha) != 3):
         #print('tupla no valida')
         return (bool(0))
@@ -37,7 +38,7 @@ def cal_Dia(fecha):
 
 #R1 ---------------------------------------------------------------------
 #joshua
-def bisiesto(fecha):
+def bisiesto(fecha): #Cambio de nombre
     if(fecha >= 1582):
         if(fecha%4 == 0):
             return True
@@ -49,7 +50,7 @@ def bisiesto(fecha):
 #R2 --------------------     fecha valida G.     ------------------------------
 #mari 
 
-def cal_G(dia, mes, anno):
+def cal_G(dia, mes, anno): #Cambio de nombre
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
 
@@ -94,15 +95,15 @@ def fecha_es_valida(fecha):
 
 #R3 --------------------     dia siguiente       -------------------------------------
 #joshua
-def dia_siguiente(dia_actual):
+def dia_siguiente(dia_actual): #Cambio de nombre
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
-    if (fecha_es_tupla(dia_actual) and fecha_es_valida(dia_actual) and dia_actual[0] > 1582):
+    if (fecha_es_tupla(dia_actual) and fecha_es_valida(dia_actual) and dia_actual[0] > 1582): #Normalización de espacios e identaciones
         esBisiesto = bisiesto(dia_actual[0])
         dia = dia_actual[2]
         mes = dia_actual[1]
         if (mes in Dias_31) and (dia == 31):
-            if (mes == 12): #Cambia de año
+            if (mes == 12): #Devuelve el año siguiente
                 dia_actual = (dia_actual[0]+1,1,1)
                 return dia_actual
             else:
@@ -120,7 +121,7 @@ def dia_siguiente(dia_actual):
                 dia_actual = (dia_actual[0],dia_actual[1],dia_actual[2]+1)
                 return dia_actual
         elif (mes == 2) and (dia == 28):
-            dia_actual = (dia_actual[0],dia_actual[1]+1,1)#Devuelve Febrero
+            dia_actual = (dia_actual[0],dia_actual[1]+1,1)#Devuelve el día siguiente en Febrero
             return dia_actual
         else:
             dia_actual = (dia_actual[0],dia_actual[1],dia_actual[2]+1)
@@ -130,7 +131,7 @@ def dia_siguiente(dia_actual):
             
 #R4 --------------------     ordinal             ------------------------------------------
 #mari
-def ordinal_dia(ordinal):
+def ordinal_dia(ordinal): #Cambio de nombre
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
     dias = 0
@@ -152,7 +153,7 @@ def ordinal_dia(ordinal):
 #R5 --------------------     CALENDARIO          ------------------------------------------
 #joshua y mari
 
-def Imprimir_3x4(calendario):
+def Imprimir_3x4(calendario): #Cambio de nombre
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
     if calendario <= 1582:
@@ -927,30 +928,33 @@ def Imprimir_3x4(calendario):
 
 
 #R6 --------------------     dia_semana          ------------------------------------------
-#parametro: fecha tipo (año,mes,dia)
-#devuelve: # segun dia 
+#Descripción: Dada una fecha, devuelve un valor númerico que indica el día de la semana al cual corresponde esta fecha
+#parametro: Terna que contiene una fecha en el formato (año,mes,dia)
+#devuelve: Un número que representa un día de la semana 
 
 def dia_semana(fecha):
-    formatoMeses = {1:11,2:12,3:1,4:2,5:3,6:4,7:5,8:6,9:7,10:8,11:9,12:10}
-    dia = fecha[2] #Dia del año
-    mes = formatoMeses[fecha[1]] #Mes del año, se cuenta desde marzo (Marzo = 1)
-    anno = fecha[0]
-    if (mes == 12) or (mes == 11): #Se cuentan los ultimos dos meses del año pasado como enero y febrero
-        anno -=1 
-    PD = anno//100 #Primeros dos digitos del año
-    UD = anno%100 #Ultimos dos digitos del año
-    
-    NumDia = (dia+( (13*mes-1)//5 )+UD+(UD//4)+(PD//4)-2*PD)%7 #Numero correspondiente al día de la semana de esa fecha en particular
-    return NumDia
-
+    if (fecha_es_tupla(fecha) and fecha_es_valida(fecha) and fecha[0] > 1582 ): #Se agregaron validaciones
+        formatoMeses = {1:11,2:12,3:1,4:2,5:3,6:4,7:5,8:6,9:7,10:8,11:9,12:10} #Valor númerico que toman los meses en este algoritmo
+        dia = fecha[2] #Dia del año
+        mes = formatoMeses[fecha[1]] #Mes del año, se cuenta desde marzo (Marzo = 1)
+        anno = fecha[0]
+        if (mes == 12) or (mes == 11): #Se cuentan los ultimos dos meses del año pasado como enero y febrero
+            anno -=1 
+        PD = anno//100 #Primeros dos digitos del año
+        UD = anno%100 #Ultimos dos digitos del año
+        
+        NumDia = (dia+( (13*mes-1)//5 )+UD+(UD//4)+(PD//4)-2*PD)%7 #Numero correspondiente al día de la semana de esa fecha en particular
+        return NumDia
+    else:
+        print("Fecha no valida")
 
 #R7 --------------------     fecha_futura          ------------------------------------------
 #tupla y umero, devolver ua tupla??
 
 #R8 --------------------     dias_entre          ------------------------------------------
-#lista que tiee 2 tuplas o 2 parametros diferetes
-#04/06/2022: 1:15 horas, 30 programando, 30 diseñando, 15 documentación
-#04/07/2022: 1 hora programando
+#Descripción: Calcula el número de días que hay entre 2 fechas
+#Entradas: Dos ternas que contienen cada una, una fecha
+#Salidas: El número de días existentes entre las 2 fechas
 def dias_entre(fecha1,fecha2):
     if (fecha_es_tupla(fecha1) and fecha_es_tupla(fecha2) and fecha_es_valida(fecha1) and fecha_es_valida(fecha2) and fecha1[0] > 1582 and fecha2[0] > 1582): #Validación con R0 y R2
         if (fecha1 == fecha2):
@@ -987,6 +991,50 @@ def dias_entre(fecha1,fecha2):
 #validar co R0
 
 #R10 --------------------     fecha_hoy          ------------------------------------------
+#Descripción: Llamar a esta función devuelve la fecha de hoy, obtenida a partir de la función today(), pero con el formato (año,mes,dia)
+#Entradas: Ningunas
+#Salidas: Una terna con la fecha de hoy, en formato (año,mes,dia)
 def fecha_hoy():
-    pass
+    fecha_sin_formatear = str(date.today()) # Obtiene la fecha de hoy
+    anno = int(fecha_sin_formatear[0:4])
+    mes = int(fecha_sin_formatear[5:7])
+    dia = int(fecha_sin_formatear[8:10])
+    fecha_formateada = (anno,mes,dia)
+    if (fecha_es_tupla(fecha_formateada) and fecha_es_valida(fecha_formateada) and fecha_formateada[0] > 1582 ):
+        return fecha_formateada
+    else:
+        print("La fecha no es correcta")
+
 #R11 --------------------     edad_hoy          ------------------------------------------
+
+
+
+
+
+
+
+
+
+#---------------------------Pruebas-------------------------------------
+#R6
+##dia_semana((2022,4,7))
+##dia_semana((2022,4,8))
+##dia_semana((1223,4,7))
+##dia_semana((123144,24,4))
+#R8
+##dias_entre((2022,4,7),(2022,4,6))
+##dias_entre((2022,4,6),(2022,4,7))
+##dias_entre((2022,4,7),(2022,4,7))
+##dias_entre((2022,5,7),(2022,4,6))
+##dias_entre((2022,4,7),(2022,5,6))
+##dias_entre((2023,4,7),(2022,4,6))
+##dias_entre((2022,4,7),(2023,4,6))
+##dias_entre((2022,4,7),(2022,4,6))
+##dias_entre((1333,4,7),(2022,4,6))
+##dias_entre((1583,4,7),(2022,4,6))
+##dias_entre((2022,4,7),(2022,53,6))
+##dias_entre((2022,64,7),(2022,4,6))
+##dias_entre((2022,4,7),(2022,4,51))
+##dias_entre((2022,4,91),(2022,4,6))
+#R10
+#fecha_hoy()
