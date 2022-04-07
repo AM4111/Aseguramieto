@@ -1111,14 +1111,15 @@ def fecha_hoy():
         print("La fecha no es correcta")
 
 #R11 --------------------     edad_hoy          ------------------------------------------
-
-
-
-
-
-
-
-
+def edad_hoy(fecha_na):
+    tiempo=(0,0,0)
+    
+    if(fecha_es_valida(fecha_na)):
+        fecha_actual = fecha_hoy()
+        tiempo = edad_al(fecha_na,fecha_actual)
+        return tiempo 
+    else:
+        print("La fecha nacimiento dada no es válida")
 
 #---------------------------Pruebas-------------------------------------
 #R6
