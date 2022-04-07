@@ -66,7 +66,7 @@ def cal_G(dia, mes, anno):
     elif(mes==2 and dia<=28):
         return (bool(1))
         
-    elif (R1(anno)and dia<=29):
+    elif (bisiesto(anno)and dia<=29):
         return (bool(1))
         
     elif(mes in Dias_30 and dia<=30):
@@ -80,7 +80,7 @@ def cal_G(dia, mes, anno):
         return (bool(0))
     
 def fecha_es_valida(fecha):
-    if(R0(fecha)):
+    if(fecha_es_tupla(fecha)):
         if(fecha[0]>=1582):
             if (cal_G(fecha[2],fecha[1],fecha[0])):
                 return (bool(1))
@@ -97,8 +97,8 @@ def fecha_es_valida(fecha):
 def dia_siguiente(dia_actual): #Calcula el dia siguiente, dado una fecha. Puede mejorarse
 	Dias_31 = [1,3,5,7,8,10,12]
 	Dias_30 = [4,6,9,11]
-	if (R2(dia_actual) == True):
-		esBisiesto = R1(dia_actual[0])
+	if (dia_siguiente(dia_actual) == True):
+		esBisiesto = bisiesto(dia_actual[0])
 		dia = dia_actual[2]
 		mes = dia_actual[1]
 		if (mes in Dias_31) and (dia == 31):
@@ -131,10 +131,10 @@ def ordinal_dia(ordinal):
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
     dias = 0
-    if(R2(ordinal)):
+    if(fecha_es_valida(ordinal)):
         for i in range(ordinal[1]):
             if (i ==2):
-                if (R1(ordinal[0])):
+                if (bisiesto(ordinal[0])):
                     #print("isiesto")
                     dias = dias + 29
                 else:
@@ -232,7 +232,7 @@ def Imprimir_3x4(calendario):
                 c = cal_Dia(m1)
                 if (c == 0 ):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -398,7 +398,7 @@ def Imprimir_3x4(calendario):
                                                     p7 = str(m1[2])
                 elif (c == 1):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -542,7 +542,7 @@ def Imprimir_3x4(calendario):
                     
                 elif (c == 2):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -660,7 +660,7 @@ def Imprimir_3x4(calendario):
                                             p7 = str(m1[2])
                 elif (c == 3):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -754,7 +754,7 @@ def Imprimir_3x4(calendario):
                                         p7 = str(m1[2])
                 elif (c == 4):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -824,7 +824,7 @@ def Imprimir_3x4(calendario):
                                     p7 = str(m1[2])
                 elif (c == 5):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -870,7 +870,7 @@ def Imprimir_3x4(calendario):
                                 p7 = str(m1[2])
                 elif (c == 6):
                     if(m1[1]== 2):
-                        if(R1(m1[0])):
+                        if(bisiesto(m1[0])):
                             if (m1[2]<=29 and ff==0):
                                 if (m1[2]==29):
                                     ff = 1
@@ -946,6 +946,26 @@ def dia_semana(fecha):
 
 #R8 --------------------     dias_entre          ------------------------------------------
 #lista que tiee 2 tuplas o 2 parametros diferetes
+#04/06/2022: 1:15 horas, 30 programando, 30 diseñando, 15 documentación
+def dias_entre(fecha1,fecha2):
+    if (fecha_es_tupla(fecha1) and fecha_es_tupla(fecha2) and fecha_es_valida(fecha1) and fecha_es_valida(fecha2) and fecha1[0] > 1582 and fecha2[0] > 1582): #Validación con R0 y R2
+        if (fecha1 == fecha2):
+            return 0
+        elif (fecha1[0] == fecha2[0]):
+            if (fecha1[1] == fecha2[1]):
+                if (fecha1[2] > fecha2[2]):
+                    return fecha1[2] - fecha2[2]
+                else:
+                    return fecha2[2] - fecha1[2]
+            else:
+                if (fecha1[1] > fecha2[1]):
+                    return ordinal_dia(fecha1) - ordinal_dia(fecha2)
+                else:
+                    return ordinal_dia(fecha2) - ordinal_dia(fecha1)   
+        else:#falta manejar años
+            pass
+    else:
+        print("La fecha no es válida")
 
 #R9 --------------------     edad_al          ------------------------------------------
 #lista que tiee 2 tuplas
@@ -953,5 +973,6 @@ def dia_semana(fecha):
 #validar co R0
 
 #R10 --------------------     fecha_hoy          ------------------------------------------
-
+def fecha_hoy():
+    pass
 #R11 --------------------     edad_hoy          ------------------------------------------
