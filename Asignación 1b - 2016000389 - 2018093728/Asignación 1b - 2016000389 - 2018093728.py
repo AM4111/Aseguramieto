@@ -947,6 +947,80 @@ def dia_semana(fecha):
 #R7 --------------------     fecha_futura          ------------------------------------------
 #tupla y umero, devolver ua tupla??
 
+
+def fecha_futura(fecha,num):
+    Dias_31 = [1,3,5,7,8,10,12]
+    Dias_30 = [4,6,9,11]
+    
+    if(fecha_es_valida(fecha)):
+        if (num < 0):
+            print("La numero es negativo")
+        elif(num == 0):
+            return fecha
+        else:
+            while num>0:
+                dias_mas=0
+                if(fecha[1] in Dias_31):
+                    dias_mas = 31 -  fecha[2]
+                    if (num >= dias_mas):
+                        fecha = (fecha[0],fecha[1],fecha[2]+dias_mas)
+                        num = num - dias_mas
+                    else:
+                        fecha = (fecha[0],fecha[1],fecha[2]+num)
+                        num = 0
+
+                    if (fecha[2]==31):
+                        if(num >0):
+                            if (fecha[1]==12):
+                                fecha = (fecha[0]+1,1,1)
+                            else:
+                                fecha = (fecha[0],fecha[1]+1,1)
+                            num = num - 1
+                            
+                elif(fecha[1] in Dias_31):
+                    dias_mas = 30 -  fecha[2]
+                    if (num >= dias_mas ):
+                        fecha = (fecha[0],fecha[1],fecha[2]+dias_mas)
+                        num = num - dias_mas
+                    else:
+                        fecha = (fecha[0],fecha[1],fecha[2]+num)
+                        num = 0
+
+                    if (fecha[2]==30):
+                        if(num >0):
+                            fecha = (fecha[0],fecha[1]+1,1)
+                            num = num - 1
+                else:
+                    if (bisiesto(fecha[0])):
+                        dias_mas = 29 -  fecha[2]
+                        if (num >= dias_mas ):
+                            fecha = (fecha[0],fecha[1],fecha[2]+dias_mas)
+                            num = num - dias_mas
+                        else:
+                            fecha = (fecha[0],fecha[1],fecha[2]+num)
+                            num = 0
+
+                        if (fecha[2]==29):
+                            if(num >0):
+                                fecha = (fecha[0],fecha[1]+1,1)
+                                num = num - 1
+                    else:
+                        dias_mas = 28 -  fecha[2]
+                        if (num >= dias_mas ):
+                            fecha = (fecha[0],fecha[1],fecha[2]+dias_mas)
+                            num = num - dias_mas
+                        else:
+                            fecha = (fecha[0],fecha[1],fecha[2]+num)
+                            num = 0
+
+                        if (fecha[2]==28):
+                            if(num >0):
+                                fecha = (fecha[0],fecha[1]+1,1)
+                                num = num - 1
+            return fecha
+    else:
+        print("La fecha no es valida")
+    
 #R8 --------------------     dias_entre          ------------------------------------------
 #lista que tiee 2 tuplas o 2 parametros diferetes
 #04/06/2022: 1:15 horas, 30 programando, 30 diseñando, 15 documentación
@@ -985,7 +1059,38 @@ def dias_entre(fecha1,fecha2):
 #lista que tiee 2 tuplas
 #retur (años que tiee, meses,dias)
 #validar co R0
-
+def edad_al(fecha_na,fecha_actual):
+    Dias_31 = [1,3,5,7,8,10,12]
+    Dias_30 = [4,6,9,11]
+    tiempo=(0,0,0)
+    
+    if(fecha_es_valida(fecha_na)):
+        if(fecha_es_valida(fecha_actual)):
+            if (fecha_na[0]==fecha_actual[0] and fecha_na[1]>=fecha_actual[1] and fecha_na[2]>fecha_actual[2]):
+                print("La fecha de nacimiento es mas reciente que la fecha actual dada")
+            else:
+                annos= fecha_actual[0] - fecha_na[0]
+                if((fecha_actual[2] - fecha_na[2])>=0):
+                    meses = fecha_actual[1] - fecha_na[1]
+                    dias = fecha_actual[2] - fecha_na[2]
+                else:
+                    meses = fecha_actual[1] - fecha_na[1] -1
+                    if (fecha_actual[1]-1 in Dias_31 ):
+                        dias = 31 - fecha_na[2] + fecha_actual[2]
+                    elif (fecha_actual[1]-1 in Dias_30 ):
+                        dias = 30 - fecha_na[2] + fecha_actual[2]
+                    else:
+                        if(bisiesto(fecha_actual[0])):
+                            dias = 29 - fecha_na[2] + fecha_actual[2]
+                        else:
+                            dias = 28 - fecha_na[2] + fecha_actual[2]
+                tiempo= (annos,meses,dias)
+                return tiempo
+        else:
+            print("La fecha actual dada no es válida")
+    else:
+        print("La fecha nacimiento dada no es válida")
+    
 #R10 --------------------     fecha_hoy          ------------------------------------------
 def fecha_hoy():
     pass
