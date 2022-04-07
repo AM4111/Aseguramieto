@@ -94,36 +94,39 @@ def fecha_es_valida(fecha):
 
 #R3 --------------------     dia siguiente       -------------------------------------
 #joshua
-def dia_siguiente(dia_actual): #Calcula el dia siguiente, dado una fecha. Puede mejorarse
-	Dias_31 = [1,3,5,7,8,10,12]
-	Dias_30 = [4,6,9,11]
-	if (dia_siguiente(dia_actual) == True):
-		esBisiesto = bisiesto(dia_actual[0])
-		dia = dia_actual[2]
-		mes = dia_actual[1]
-		if (mes in Dias_31) and (dia == 31):
-			fecha = (dia_actual[0],dia_actual[1]+1,1)
-			return dia_actual
-		if (mes in Dias_30) and (dia == 30):
-			fecha = (dia_actual[0],dia_actual[1]+1,1)
-			return fecha
-		if (esBisiesto) and (mes == 2):
-			if (dia == 29):
-				dia_actual = (dia_actual[0],dia_actual[1]+1,1)
-				return dia_actual
-			else:
-				dia_actual = (dia_actual[0],dia_actual[1],dia_actual[2]+1)
-				return dia_actual
-		elif (mes == 2) and (dia == 28):
-			fecha = (dia_actual[0],dia_actual[1]+1,1)
-			return dia_actual
-		else:
-			dia_actual = (dia_actual[0],dia_actual[1],dia_actual[2]+1)
-			return dia_actual
-		#01,03,05,07,08,10,12
-		#04,06,09,11
-	else:
-		print("La fecha ingresada no es válida")
+def dia_siguiente(dia_actual):
+    Dias_31 = [1,3,5,7,8,10,12]
+    Dias_30 = [4,6,9,11]
+    if (fecha_es_tupla(dia_actual) and fecha_es_valida(dia_actual) and dia_actual[0] > 1582):
+        esBisiesto = bisiesto(dia_actual[0])
+        dia = dia_actual[2]
+        mes = dia_actual[1]
+        if (mes in Dias_31) and (dia == 31):
+            if (mes == 12): #Cambia de año
+                dia_actual = (dia_actual[0]+1,1,1)
+                return dia_actual
+            else:
+                dia_actual = (dia_actual[0],dia_actual[1]+1,1)
+                return dia_actual
+        elif (mes in Dias_30) and (dia == 30):
+            dia_actual = (dia_actual[0],dia_actual[1]+1,1)
+            return dia_actual
+    
+        elif (esBisiesto) and (mes == 2):
+            if (dia == 29):
+                dia_actual = (dia_actual[0],dia_actual[1]+1,1)
+                return dia_actual
+            else:
+                dia_actual = (dia_actual[0],dia_actual[1],dia_actual[2]+1)
+                return dia_actual
+        elif (mes == 2) and (dia == 28):
+            dia_actual = (dia_actual[0],dia_actual[1]+1,1)#Devuelve Febrero
+            return dia_actual
+        else:
+            dia_actual = (dia_actual[0],dia_actual[1],dia_actual[2]+1)
+            return dia_actual
+    else:
+        print("La fecha ingresada no es válida")
             
 #R4 --------------------     ordinal             ------------------------------------------
 #mari
@@ -947,6 +950,7 @@ def dia_semana(fecha):
 #R8 --------------------     dias_entre          ------------------------------------------
 #lista que tiee 2 tuplas o 2 parametros diferetes
 #04/06/2022: 1:15 horas, 30 programando, 30 diseñando, 15 documentación
+#04/07/2022: 1 hora programando
 def dias_entre(fecha1,fecha2):
     if (fecha_es_tupla(fecha1) and fecha_es_tupla(fecha2) and fecha_es_valida(fecha1) and fecha_es_valida(fecha2) and fecha1[0] > 1582 and fecha2[0] > 1582): #Validación con R0 y R2
         if (fecha1 == fecha2):
@@ -962,8 +966,18 @@ def dias_entre(fecha1,fecha2):
                     return ordinal_dia(fecha1) - ordinal_dia(fecha2)
                 else:
                     return ordinal_dia(fecha2) - ordinal_dia(fecha1)   
-        else:#falta manejar años
-            pass
+        else:
+            dias = 0
+            if (fecha1[0] > fecha2[0]):
+                while (fecha1 > fecha2):
+                    fecha2 = dia_siguiente(fecha2)
+                    dias += 1
+                return dias
+            else:
+                while (fecha2 > fecha1):
+                    fecha1 = dia_siguiente(fecha1)
+                    dias += 1
+                return dias
     else:
         print("La fecha no es válida")
 
