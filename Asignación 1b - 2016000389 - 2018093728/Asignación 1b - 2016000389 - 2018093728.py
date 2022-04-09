@@ -36,6 +36,42 @@ def cal_Dia(fecha):
     NumDia = (dia+( (13*mes-1)//5 )+UD+(UD//4)+(PD//4)-2*PD)%7 #Numero correspondiente al día de la semana de esa fecha en particular
     return NumDia
 
+def contador_dia_simple(fecha): 
+    Dias_31 = [1,3,5,7,8,10,12]
+    Dias_30 = [4,6,9,11]
+    anno = fecha[0]
+    dia = fecha[2]
+    mes = fecha[1]
+    if (mes == 0 and dia == 31):
+        fecha = (anno,mes+1,1)
+        return fecha
+    elif (mes in Dias_31) and (dia == 31):
+        if (mes == 12): #Devuelve el año siguiente
+            fecha = (anno+1,1,1)
+            return fecha
+        else:
+            fecha = (anno,mes+1,1)
+            return fecha
+        
+    elif (mes in Dias_30) and (dia == 30):
+        fecha = (anno,mes+1,1)
+        return fecha
+            
+    elif (bisiesto(anno)) and (mes == 2):
+            if (dia == 29):
+                fecha = (anno,mes+1,1)
+                return fecha
+            else:
+                fecha = (anno,mes,dia+1)
+                return fecha
+            
+    elif (mes == 2) and (dia == 28):
+        fecha = (anno,mes+1,1)#Devuelve el día siguiente en Febrero
+        return fecha
+    else:
+        fecha = (anno,mes,dia+1)
+        return fecha
+
 #R1 ---------------------------------------------------------------------
 #joshua
 def bisiesto(fecha): #Cambio de nombre
@@ -1060,40 +1096,47 @@ def dias_entre(fecha1,fecha2):
         print("La fecha no es válida")
 
 #R9 --------------------     edad_al          ------------------------------------------
-#lista que tiee 2 tuplas
-#retur (años que tiee, meses,dias)
-#validar co R0
+#lista que tiene 2 tuplas
+#return (años que tiene, meses,dias)
+#validar con R0
 def edad_al(fecha_na,fecha_actual):
     Dias_31 = [1,3,5,7,8,10,12]
     Dias_30 = [4,6,9,11]
-    tiempo=(0,0,0)
+    tiempo=(0,1,0)
     
     if(fecha_es_valida(fecha_na)):
-        if(fecha_es_valida(fecha_actual)):
+        if (fecha_es_valida(fecha_actual)):
             if (fecha_na[0]==fecha_actual[0] and fecha_na[1]>=fecha_actual[1] and fecha_na[2]>fecha_actual[2]):
                 print("La fecha de nacimiento es mas reciente que la fecha actual dada")
             else:
-                annos= fecha_actual[0] - fecha_na[0]
-                if((fecha_actual[2] - fecha_na[2])>=0):
-                    meses = fecha_actual[1] - fecha_na[1]
-                    dias = fecha_actual[2] - fecha_na[2]
-                else:
-                    meses = fecha_actual[1] - fecha_na[1] -1
-                    if (fecha_actual[1]-1 in Dias_31 ):
-                        dias = 31 - fecha_na[2] + fecha_actual[2]
-                    elif (fecha_actual[1]-1 in Dias_30 ):
-                        dias = 30 - fecha_na[2] + fecha_actual[2]
-                    else:
-                        if(bisiesto(fecha_actual[0])):
-                            dias = 29 - fecha_na[2] + fecha_actual[2]
+                while(fecha_na != fecha_actual):
+                    esBisiesto = bisiesto(fecha_na[0])
+                    anno = fecha_na[0]
+                    mes = fecha_na[1]
+                    dia = fecha_na[2]
+                    if (mes in Dias_31) and (dia == 31):
+                        if (mes == 12): #Devuelve el año siguiente
+                            fecha_na = (anno+1,1,1)
+                            tiempo = contador_dia_simple(tiempo)
                         else:
-                            dias = 28 - fecha_na[2] + fecha_actual[2]
-                tiempo= (annos,meses,dias)
+                            fecha_na = (anno,mes+1,1)
+                            tiempo = contador_dia_simple(tiempo)
+                    elif (mes in Dias_30) and (dia == 30):
+                        fecha_na = (anno,mes+1,1)
+                        tiempo = contador_dia_simple(tiempo)
+                    elif (mes == 2) and (dia == 28):
+                        fecha_na = (anno,mes+1,1)#Devuelve el día siguiente en Febrero
+                        tiempo = contador_dia_simple(tiempo)
+                    else:
+                        fecha_na = (anno,mes,dia+1)
+                        tiempo = contador_dia_simple(tiempo)
+                tiempo = (tiempo[0],tiempo[1]-1,tiempo[2])
                 return tiempo
         else:
             print("La fecha actual dada no es válida")
     else:
-        print("La fecha nacimiento dada no es válida")
+        print("La fecha nacimiento dada no es válida")  
+        
     
 #R10 --------------------     fecha_hoy          ------------------------------------------
 #Descripción: Llamar a esta función devuelve la fecha de hoy, obtenida a partir de la función today(), pero con el formato (año,mes,dia)
@@ -1127,6 +1170,19 @@ def edad_hoy(fecha_na):
 ##dia_semana((2022,4,8))
 ##dia_semana((1223,4,7))
 ##dia_semana((123144,24,4))
+#R7
+##fecha_futura((2022,2,7),2)
+##fecha_futura((2022,2,28),2)
+##fecha_futura((2022,2,28),0)
+##fecha_futura((2022,2,29),0)
+##fecha_futura((2022,2,29),1)
+##fecha_futura((2016,2,29),1)
+##fecha_futura((2016,13,2),1)
+##fecha_futura((1333,13,2),1)
+##fecha_futura((1993,12,31),1)
+##fecha_futura((1993,12,31),20)
+##fecha_futura((1993,12,31),365)
+##fecha_futura((1993,12,31),-365)
 #R8
 ##dias_entre((2022,4,7),(2022,4,6))
 ##dias_entre((2022,4,6),(2022,4,7))
@@ -1142,5 +1198,7 @@ def edad_hoy(fecha_na):
 ##dias_entre((2022,64,7),(2022,4,6))
 ##dias_entre((2022,4,7),(2022,4,51))
 ##dias_entre((2022,4,91),(2022,4,6))
+#R9
+
 #R10
 #fecha_hoy()
