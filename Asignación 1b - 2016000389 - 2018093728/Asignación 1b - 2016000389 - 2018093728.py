@@ -1124,7 +1124,14 @@ def edad_al(fecha_na,fecha_actual):
                     elif (mes in Dias_30) and (dia == 30):
                         fecha_na = (anno,mes+1,1)
                         tiempo = contador_dia_simple(tiempo)
-                    elif (mes == 2) and (dia == 28):
+                    elif (mes == 2) and (esBisiesto==bool(1)) and (dia == 29):
+                        if (dia == 29):
+                            fecha_na = (anno,mes+1,1)               # Devuelve el día siguiente en Febrero bisiesto
+                            tiempo = contador_dia_simple(tiempo)
+                        if (dia == 28):
+                            fecha_na = (anno,mes,dia + 1)           # Devuelve el día 29 Febrero
+                            tiempo = contador_dia_simple(tiempo)
+                    elif (mes == 2) and (esBisiesto==bool(0)) and (dia == 28):
                         fecha_na = (anno,mes+1,1)#Devuelve el día siguiente en Febrero
                         tiempo = contador_dia_simple(tiempo)
                     else:
